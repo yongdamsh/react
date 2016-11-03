@@ -18,6 +18,7 @@ var ReactUpdates = require('ReactUpdates');
 
 var invariant = require('invariant');
 var warning = require('warning');
+var shallowEqual = require('shallowEqual');
 
 function enqueueUpdate(internalInstance) {
   ReactUpdates.enqueueUpdate(internalInstance);
@@ -227,6 +228,12 @@ var ReactUpdateQueue = {
         partialState != null,
         'setState(...): You passed an undefined or null state object; ' +
         'instead, use forceUpdate().'
+      );
+
+      warning(
+        shallowEqual(publicInstance._currentState, publicInstance.state),
+        'this.state: Setting state directly from this.state is not ' +
+        'recommended. Instead, use this.setState().'
       );
     }
 

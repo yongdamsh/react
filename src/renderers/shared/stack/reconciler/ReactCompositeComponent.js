@@ -329,6 +329,10 @@ var ReactCompositeComponent = {
       this.getName() || 'ReactCompositeComponent'
     );
 
+    if (__DEV__) {
+      inst._currentState = Object.assign({}, initialState);
+    }
+
     this._pendingStateQueue = null;
     this._pendingReplaceState = false;
     this._pendingForceUpdate = false;
@@ -840,6 +844,10 @@ var ReactCompositeComponent = {
 
     var nextState = this._processPendingState(nextProps, nextContext);
     var shouldUpdate = true;
+
+    if (__DEV__) {
+      inst._currentState = Object.assign({}, nextState);
+    }
 
     if (!this._pendingForceUpdate) {
       if (inst.shouldComponentUpdate) {
